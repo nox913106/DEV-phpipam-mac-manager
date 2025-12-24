@@ -114,6 +114,7 @@ mac-manager/
 ├── config.yaml             # 設定檔（從 .example 複製）
 ├── config.yaml.example     # 設定檔範例
 ├── utils.py                # 共用工具函數
+├── log/                    # → /var/log/mac-manager/ (symbolic link)
 ├── collectors/
 │   ├── __init__.py
 │   ├── snmp_collector.py   # SNMP ARP 收集
@@ -128,6 +129,17 @@ mac-manager/
 ├── monthly/                # 月報表
 ├── ldap_mac.txt            # LDAP MAC 清單
 └── mac_manager.log         # 程式日誌
+```
+
+### 建立日誌目錄與捷徑
+
+```bash
+# 建立系統日誌目錄
+mkdir -p /var/log/mac-manager/{daily,monthly}
+
+# 在專案目錄建立捷徑方便調閱
+cd /home/sysadmin/mac-manager
+ln -s /var/log/mac-manager log
 ```
 
 ## 遷移指南

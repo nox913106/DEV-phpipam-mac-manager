@@ -569,7 +569,13 @@ pip install pyyaml</pre>
 scp -r mac-manager root@server:/home/sysadmin/
 
 # 進入專案目錄
-cd /home/sysadmin/mac-manager</pre>
+cd /home/sysadmin/mac-manager
+
+# 建立系統日誌目錄
+mkdir -p /var/log/mac-manager/{daily,monthly}
+
+# 在專案目錄建立捷徑方便調閱
+ln -s /var/log/mac-manager log</pre>
                 </div>
             </div>
 
