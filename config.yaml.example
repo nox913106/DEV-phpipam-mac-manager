@@ -1,0 +1,39 @@
+# MAC Manager 設定檔
+# 複製此檔案為 config.yaml 並修改設定
+
+snmp:
+  # SNMP community strings（依序嘗試）
+  communities:
+    - pcc-snmp
+    - community1
+    - community2
+  # ARP 表 OID
+  oid: "1.3.6.1.2.1.4.22.1.2"
+  # 要掃描的設備 IP 清單
+  device_ips:
+    - 10.1.1.1
+    - 172.16.5.1
+
+ldap:
+  # LDAP 伺服器位址
+  server: "ldap://172.16.5.50"
+  # 綁定 DN
+  bind_dn: "cn=mirrormode,dc=pouchen,dc=com"
+  # 密碼從環境變數讀取（安全考量）
+  password_env: "LDAP_PASSWORD"
+  # 搜尋基底 DN
+  base_dn: "dc=pouchen,dc=com"
+
+output:
+  # 每日 ARP 收集輸出目錄
+  daily_dir: "./output/daily"
+  # 月報表輸出目錄
+  monthly_dir: "./output/monthly"
+  # LDAP MAC 輸出檔案
+  ldap_output: "./output/ldap_mac.txt"
+
+logging:
+  # 日誌等級：DEBUG, INFO, WARNING, ERROR
+  level: "INFO"
+  # 日誌檔案（留空則只輸出到終端）
+  file: "./mac_manager.log"

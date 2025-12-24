@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>開發計畫書 - mac-manager 規範套用</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --bg2: #1e293b;
+            --card: #334155;
+            --text: #f1f5f9;
+            --text2: #94a3b8;
+            --green: #22c55e;
+            --blue: #3b82f6;
+            --orange: #f97316;
+            --purple: #a855f7;
+        }
+
+        :root.light {
+            --bg: #f8fafc;
+            --bg2: #ffffff;
+            --card: #e2e8f0;
+            --text: #1e293b;
+            --text2: #64748b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .controls {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: flex-end;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .control-btn {
+            padding: 0.5rem 1rem;
+            background: var(--bg2);
+            border: 1px solid var(--card);
+            border-radius: 0.5rem;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .control-btn:hover {
+            background: var(--card);
+        }
+
+        .control-btn.active {
+            background: var(--blue);
+            border-color: var(--blue);
+            color: #fff;
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--blue), var(--purple));
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        header p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .card {
+            background: var(--bg2);
+            border: 1px solid var(--card);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card h2 {
+            color: var(--blue);
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--card);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th,
+        td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--card);
+        }
+
+        th {
+            background: var(--card);
+            color: var(--blue);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: rgba(34, 197, 94, 0.2);
+            color: var(--green);
+        }
+
+        .badge-warning {
+            background: rgba(249, 115, 22, 0.2);
+            color: var(--orange);
+        }
+
+        .badge-danger {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .alert-info {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid var(--blue);
+        }
+
+        ul {
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background: var(--card);
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.25rem;
+            font-family: 'Consolas', monospace;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text2);
+            border-top: 1px solid var(--card);
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="controls">
+        <button class="control-btn" onclick="toggleTheme()" id="themeBtn">🌙 Dark</button>
+        <button class="control-btn active" onclick="setLang('zh-TW')" data-lang="zh-TW">繁體中文</button>
+        <button class="control-btn" onclick="setLang('zh-CN')" data-lang="zh-CN">简体中文</button>
+        <button class="control-btn" onclick="setLang('en')" data-lang="en">English</button>
+    </div>
+
+    <header>
+        <h1 data-i18n="title">開發計畫書</h1>
+        <p data-i18n="subtitle">mac-manager - 規範套用計畫</p>
+    </header>
+
+    <div class="card">
+        <h2 data-i18n="overview">📋 專案概述</h2>
+        <table>
+            <tr>
+                <td data-i18n="projectName">專案名稱</td>
+                <td>mac-manager</td>
+            </tr>
+            <tr>
+                <td data-i18n="projectType">專案類型</td>
+                <td>Python CLI 工具</td>
+            </tr>
+            <tr>
+                <td data-i18n="planDate">計畫日期</td>
+                <td>2024-12-24</td>
+            </tr>
+            <tr>
+                <td data-i18n="author">作者</td>
+                <td>MG Feng</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2 data-i18n="objective">🎯 計畫目標</h2>
+        <p data-i18n="objectiveDesc">將專案中的 HTML 文件套用全域規範標準，確保一致性和專業性。</p>
+
+        <div class="alert alert-info">
+            <strong data-i18n="standards">需套用的規範標準：</strong>
+            <ul>
+                <li data-i18n="std1">Light/Dark Mode 切換功能</li>
+                <li data-i18n="std2">英文/繁中/簡中 語系切換功能</li>
+                <li data-i18n="std3">標準化頁末資訊（版權宣告、更新日期、文件主題、作者 MG Feng）</li>
+                <li data-i18n="std4">指令區塊一鍵複製按鈕（已有）</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2 data-i18n="currentStatus">📊 現況分析</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th data-i18n="file">文件</th>
+                    <th>Light/Dark</th>
+                    <th data-i18n="i18n">語系切換</th>
+                    <th data-i18n="footer">頁末資訊</th>
+                    <th data-i18n="copyBtn">一鍵複製</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>MAC_Manager_User_Guide.html</code></td>
+                    <td><span class="badge badge-danger">❌ 缺少</span></td>
+                    <td><span class="badge badge-danger">❌ 缺少</span></td>
+                    <td><span class="badge badge-warning">⚠️ 不完整</span></td>
+                    <td><span class="badge badge-success">✅ 已有</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2 data-i18n="implPlan">🔧 實施計畫</h2>
+        <ul>
+            <li data-i18n="task1">新增 Light/Dark Mode 切換功能</li>
+            <li data-i18n="task2">新增語系切換功能 (EN/繁中/簡中)</li>
+            <li data-i18n="task3">更新標準頁末資訊 (© 2024 MG Feng...)</li>
+            <li data-i18n="task4">建立 <code>/Docs</code> 資料夾並移動文件</li>
+            <li data-i18n="task5">更新 README.md 文件路徑</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h2 data-i18n="verification">✅ 驗證計畫</h2>
+        <ul>
+            <li data-i18n="verify1">在瀏覽器中開啟 HTML 文件</li>
+            <li data-i18n="verify2">測試 Light/Dark mode 切換</li>
+            <li data-i18n="verify3">測試三種語系切換</li>
+            <li data-i18n="verify4">確認頁末資訊正確</li>
+        </ul>
+    </div>
+
+    <footer>
+        <p>© 2024 MG Feng. All rights reserved.</p>
+        <p>Document: 開發計畫書 - mac-manager 規範套用 | Last Updated: 2024-12-24</p>
+    </footer>
+
+    <script>
+        const translations = {
+            'zh-TW': {
+                title: '開發計畫書', subtitle: 'mac-manager - 規範套用計畫',
+                overview: '📋 專案概述', projectName: '專案名稱', projectType: '專案類型',
+                planDate: '計畫日期', author: '作者', objective: '🎯 計畫目標',
+                objectiveDesc: '將專案中的 HTML 文件套用全域規範標準，確保一致性和專業性。',
+                standards: '需套用的規範標準：',
+                std1: 'Light/Dark Mode 切換功能', std2: '英文/繁中/簡中 語系切換功能',
+                std3: '標準化頁末資訊（版權宣告、更新日期、文件主題、作者 MG Feng）',
+                std4: '指令區塊一鍵複製按鈕（已有）',
+                currentStatus: '📊 現況分析', file: '文件', i18n: '語系切換',
+                footer: '頁末資訊', copyBtn: '一鍵複製', implPlan: '🔧 實施計畫',
+                task1: '新增 Light/Dark Mode 切換功能', task2: '新增語系切換功能 (EN/繁中/簡中)',
+                task3: '更新標準頁末資訊', task4: '建立 /Docs 資料夾並移動文件',
+                task5: '更新 README.md 文件路徑', verification: '✅ 驗證計畫',
+                verify1: '在瀏覽器中開啟 HTML 文件', verify2: '測試 Light/Dark mode 切換',
+                verify3: '測試三種語系切換', verify4: '確認頁末資訊正確'
+            },
+            'zh-CN': {
+                title: '开发计划书', subtitle: 'mac-manager - 规范套用计划',
+                overview: '📋 项目概述', projectName: '项目名称', projectType: '项目类型',
+                planDate: '计划日期', author: '作者', objective: '🎯 计划目标',
+                objectiveDesc: '将项目中的 HTML 文件套用全域规范标准，确保一致性和专业性。',
+                standards: '需套用的规范标准：',
+                std1: 'Light/Dark Mode 切换功能', std2: '英文/繁中/简中 语系切换功能',
+                std3: '标准化页末信息（版权声明、更新日期、文件主题、作者 MG Feng）',
+                std4: '指令区块一键复制按钮（已有）',
+                currentStatus: '📊 现况分析', file: '文件', i18n: '语系切换',
+                footer: '页末信息', copyBtn: '一键复制', implPlan: '🔧 实施计划',
+                task1: '新增 Light/Dark Mode 切换功能', task2: '新增语系切换功能 (EN/繁中/简中)',
+                task3: '更新标准页末信息', task4: '建立 /Docs 资料夹并移动文件',
+                task5: '更新 README.md 文件路径', verification: '✅ 验证计划',
+                verify1: '在浏览器中开启 HTML 文件', verify2: '测试 Light/Dark mode 切换',
+                verify3: '测试三种语系切换', verify4: '确认页末信息正确'
+            },
+            'en': {
+                title: 'Development Plan', subtitle: 'mac-manager - Standards Application Plan',
+                overview: '📋 Project Overview', projectName: 'Project Name', projectType: 'Project Type',
+                planDate: 'Plan Date', author: 'Author', objective: '🎯 Plan Objective',
+                objectiveDesc: 'Apply global standards to HTML files to ensure consistency and professionalism.',
+                standards: 'Standards to Apply:',
+                std1: 'Light/Dark Mode toggle', std2: 'EN/ZH-TW/ZH-CN language switch',
+                std3: 'Standardized footer (Copyright, Date, Title, Author MG Feng)',
+                std4: 'One-click copy button (already exists)',
+                currentStatus: '📊 Current Status', file: 'File', i18n: 'Language',
+                footer: 'Footer', copyBtn: 'Copy Button', implPlan: '🔧 Implementation Plan',
+                task1: 'Add Light/Dark Mode toggle', task2: 'Add language switch (EN/ZH-TW/ZH-CN)',
+                task3: 'Update standard footer', task4: 'Create /Docs folder and move files',
+                task5: 'Update README.md file paths', verification: '✅ Verification Plan',
+                verify1: 'Open HTML file in browser', verify2: 'Test Light/Dark mode toggle',
+                verify3: 'Test all three language switches', verify4: 'Verify footer info is correct'
+            }
+        };
+
+        let currentLang = localStorage.getItem('lang') || 'zh-TW';
+
+        function setLang(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+            document.querySelectorAll('[data-lang]').forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                if (translations[lang] && translations[lang][key]) el.textContent = translations[lang][key];
+            });
+        }
+
+        function toggleTheme() {
+            const root = document.documentElement;
+            const isDark = root.classList.toggle('light');
+            document.getElementById('themeBtn').textContent = isDark ? '☀️ Light' : '🌙 Dark';
+            localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('theme') === 'light') {
+                document.documentElement.classList.add('light');
+                document.getElementById('themeBtn').textContent = '☀️ Light';
+            }
+            setLang(currentLang);
+        });
+    </script>
+</body>
+
+</html>

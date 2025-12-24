@@ -1,0 +1,1117 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAC Manager 使用說明書</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-code: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --border: #334155;
+        }
+        :root.light {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --bg-dark: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-code: #e2e8f0;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border: #cbd5e1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            border-radius: 0 0 1.5rem 1.5rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .version-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.3rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        /* Navigation */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .tab-btn:hover {
+            background: var(--bg-code);
+            color: var(--text-primary);
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card h2 {
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card h3 {
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            margin: 1.5rem 0 0.8rem;
+        }
+
+        /* Code blocks */
+        .code-block {
+            position: relative;
+            background: var(--bg-code);
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .copy-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.3rem 0.8rem;
+            border-radius: 0.3rem;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .copy-btn.copied {
+            background: var(--success);
+        }
+
+        pre {
+            padding: 1rem;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        code {
+            font-family: 'Consolas', 'Monaco', monospace;
+            background: var(--bg-code);
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.3rem;
+            font-size: 0.9rem;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th,
+        td {
+            padding: 0.8rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: var(--bg-code);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* Lists */
+        ul,
+        ol {
+            padding-left: 1.5rem;
+            margin: 0.5rem 0;
+        }
+
+        li {
+            margin: 0.5rem 0;
+        }
+
+        /* Alerts */
+        .alert {
+            padding: 1rem 1.2rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            display: flex;
+            gap: 0.8rem;
+            align-items: flex-start;
+        }
+
+        .alert-info {
+            background: rgba(37, 99, 235, 0.15);
+            border-left: 4px solid var(--primary);
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.15);
+            border-left: 4px solid var(--success);
+        }
+
+        .alert-warning {
+            background: rgba(245, 158, 11, 0.15);
+            border-left: 4px solid var(--warning);
+        }
+
+        .alert-danger {
+            background: rgba(239, 68, 68, 0.15);
+            border-left: 4px solid var(--danger);
+        }
+
+        .alert-icon {
+            font-size: 1.2rem;
+        }
+
+        /* File structure */
+        .file-tree {
+            background: var(--bg-code);
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        .file-tree .folder {
+            color: #60a5fa;
+        }
+
+        .file-tree .file {
+            color: #a5b4fc;
+        }
+
+        .file-tree .main {
+            color: #34d399;
+            font-weight: bold;
+        }
+
+        /* Workflow diagram */
+        .workflow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            padding: 1.5rem;
+            background: var(--bg-code);
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .workflow-step {
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 1.2rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            min-width: 140px;
+        }
+
+        .workflow-arrow {
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .workflow {
+                flex-direction: column;
+            }
+
+            .workflow-arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Controls -->
+    <div style="display: flex; gap: 0.5rem; justify-content: flex-end; padding: 1rem 2rem; flex-wrap: wrap;">
+        <button onclick="toggleTheme()" id="themeBtn" style="padding: 0.5rem 1rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 0.5rem; color: var(--text-primary); cursor: pointer;">🌙 Dark</button>
+        <button class="lang-btn active" onclick="setLang('zh-TW')" data-lang="zh-TW" style="padding: 0.5rem 1rem; background: var(--primary); border: none; border-radius: 0.5rem; color: white; cursor: pointer;">繁體中文</button>
+        <button class="lang-btn" onclick="setLang('zh-CN')" data-lang="zh-CN" style="padding: 0.5rem 1rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 0.5rem; color: var(--text-primary); cursor: pointer;">简体中文</button>
+        <button class="lang-btn" onclick="setLang('en')" data-lang="en" style="padding: 0.5rem 1rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 0.5rem; color: var(--text-primary); cursor: pointer;">English</button>
+    </div>
+
+    <header>
+        <h1>🔧 MAC Manager</h1>
+        <p>統整的 MAC 地址管理工具</p>
+        <span class="version-badge">v1.0.0 | 2024-12</span>
+    </header>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('overview')">📋 功能總覽</button>
+            <button class="tab-btn" onclick="showTab('install')">⚙️ 安裝設定</button>
+            <button class="tab-btn" onclick="showTab('usage')">🚀 使用教學</button>
+            <button class="tab-btn" onclick="showTab('cron')">⏰ 排程設定</button>
+            <button class="tab-btn" onclick="showTab('migrate')">🔄 遷移指南</button>
+        </div>
+
+        <!-- 功能總覽 -->
+        <div id="overview" class="tab-content active">
+            <div class="card">
+                <h2>📌 專案簡介</h2>
+                <p>MAC Manager 是一個統整的 MAC 地址管理工具，整合了以下三個原有腳本的功能：</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>原腳本</th>
+                            <th>新命令</th>
+                            <th>功能</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>GetMAC_V6.py</code></td>
+                            <td><code>collect-arp</code></td>
+                            <td>SNMP ARP 表收集</td>
+                        </tr>
+                        <tr>
+                            <td><code>RadiusMacV2.py</code></td>
+                            <td><code>query-ldap</code></td>
+                            <td>LDAP RADIUS MAC 查詢</td>
+                        </tr>
+                        <tr>
+                            <td><code>MonthReportV3.py</code></td>
+                            <td><code>monthly-report</code></td>
+                            <td>月報表彙整</td>
+                        </tr>
+                        <tr>
+                            <td><strong>新功能</strong></td>
+                            <td><code>compare</code></td>
+                            <td>比對分析（找未授權設備）</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <h2>✨ 改進項目</h2>
+                <ul>
+                    <li><strong>設定集中化</strong> - 所有設定統一由 <code>config.yaml</code> 管理</li>
+                    <li><strong>密碼安全</strong> - LDAP 密碼從環境變數讀取，不再硬編碼在腳本中</li>
+                    <li><strong>統一日誌</strong> - 使用 Python logging，支援檔案輸出</li>
+                    <li><strong>CSV Header</strong> - 輸出 CSV 包含欄位標題，方便識別</li>
+                    <li><strong>模組化設計</strong> - 易於維護和擴展</li>
+                    <li><strong>CLI 介面</strong> - 統一的命令列操作方式</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>📁 專案結構</h2>
+                <div class="file-tree">
+                    <span class="folder">mac-manager/</span>
+                    ├── <span class="main">mac_manager.py</span> # 主程式 CLI 入口
+                    ├── <span class="file">config.py</span> # 設定載入模組
+                    ├── <span class="file">config.yaml</span> # 設定檔（需自行建立）
+                    ├── <span class="file">config.yaml.example</span> # 設定檔範例
+                    ├── <span class="file">utils.py</span> # 共用工具函數
+                    ├── <span class="file">README.md</span> # 說明文件
+                    ├── <span class="folder">collectors/</span>
+                    │ ├── <span class="file">__init__.py</span>
+                    │ ├── <span class="file">snmp_collector.py</span> # SNMP ARP 收集
+                    │ └── <span class="file">ldap_query.py</span> # LDAP MAC 查詢
+                    ├── <span class="folder">reports/</span>
+                    │ ├── <span class="file">__init__.py</span>
+                    │ └── <span class="file">monthly_report.py</span> # 月報表產生
+                    └── <span class="folder">output/</span>
+                    ├── <span class="folder">daily/</span> # 每日 CSV 輸出
+                    └── <span class="folder">monthly/</span> # 月報表輸出
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🔄 工作流程</h2>
+                <div class="workflow">
+                    <div class="workflow-step">📡 SNMP 掃描<br><small>collect-arp</small></div>
+                    <span class="workflow-arrow">→</span>
+                    <div class="workflow-step">💾 每日 CSV<br><small>output/daily/</small></div>
+                    <span class="workflow-arrow">→</span>
+                    <div class="workflow-step">📊 月報表<br><small>monthly-report</small></div>
+                </div>
+                <div class="workflow">
+                    <div class="workflow-step">🔐 LDAP 查詢<br><small>query-ldap</small></div>
+                    <span class="workflow-arrow">→</span>
+                    <div class="workflow-step">📋 MAC 清單<br><small>ldap_mac.txt</small></div>
+                    <span class="workflow-arrow">→</span>
+                    <div class="workflow-step">🔍 比對分析<br><small>compare</small></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 安裝設定 -->
+        <div id="install" class="tab-content">
+            <div class="card">
+                <h2>📦 系統需求</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>項目</th>
+                            <th>需求</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Python</td>
+                            <td>3.7+</td>
+                        </tr>
+                        <tr>
+                            <td>snmpwalk</td>
+                            <td>用於 SNMP 查詢</td>
+                        </tr>
+                        <tr>
+                            <td>ldapsearch</td>
+                            <td>用於 LDAP 查詢</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <h2>🔧 步驟 1：安裝依賴</h2>
+
+                <h3>Ubuntu / Debian</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Shell</span>
+                        <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    </div>
+                    <pre># 安裝系統工具
+apt update
+apt install snmp ldap-utils -y
+
+# 安裝 Python 套件
+pip install pyyaml</pre>
+                </div>
+
+                <h3>CentOS / RHEL</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Shell</span>
+                        <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    </div>
+                    <pre># 安裝系統工具
+yum install net-snmp-utils openldap-clients -y
+
+# 安裝 Python 套件
+pip install pyyaml</pre>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>📂 步驟 2：部署專案</h2>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Shell</span>
+                        <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    </div>
+                    <pre># 將專案複製到伺服器
+scp -r mac-manager root@server:/home/sysadmin/
+
+# 進入專案目錄
+cd /home/sysadmin/mac-manager</pre>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>⚙️ 步驟 3：建立設定檔</h2>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Shell</span>
+                        <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    </div>
+                    <pre># 複製設定檔範例
+cp config.yaml.example config.yaml
+
+# 編輯設定檔
+vim config.yaml</pre>
+                </div>
+
+                <h3>設定檔內容說明</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>YAML - config.yaml</span>
+                        <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    </div>
+                    <pre>snmp:
+  # SNMP community strings（依序嘗試）
+  communities:
+    - pcc-snmp
+    - public
+  # ARP 表 OID
+  oid: "1.3.6.1.2.1.4.22.1.2"
+  # 要掃描的設備 IP 清單
+  device_ips:
+    - 10.1.1.1
+    - 172.16.5.1
+
+ldap:
+  # LDAP 伺服器位址
+  server: "ldap://172.16.5.50"
+  # 綁定 DN
+  bind_dn: "cn=mirrormode,dc=pouchen,dc=com"
+  # 密碼環境變數名稱
+  password_env: "LDAP_PASSWORD"
+  # 搜尋基底 DN
+  base_dn: "dc=pouchen,dc=com"
+
+output:
+  daily_dir: "./output/daily"
+  monthly_dir: "./output/monthly"
+  ldap_output: "./output/ldap_mac.txt"
+
+logging:
+  level: "INFO"
+  file: "./mac_manager.log"</pre>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🔐 步驟 4：設定環境變數</h2>
+                <div class="alert alert-warning">
+                    <span class="alert-icon">⚠️</span>
+                    <div>LDAP 密碼不再寫在腳本中，需透過環境變數設定。</div>
+                </div>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Shell</span>
+                        <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    </div>
+                    <pre># 加入 bashrc（永久生效）
+echo "export LDAP_PASSWORD='your_password_here'" >> ~/.bashrc
+source ~/.bashrc
+
+# 或臨時設定
+export LDAP_PASSWORD='your_password_here'</pre>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>✅ 步驟 5：驗證安裝</h2>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Shell</span>
+                        <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    </div>
+                    <pre># 顯示幫助訊息
+python3 mac_manager.py --help
+
+# 查看各子命令說明
+python3 mac_manager.py collect-arp --help
+python3 mac_manager.py query-ldap --help
+python3 mac_manager.py monthly-report --help
+python3 mac_manager.py compare --help</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- 使用教學 -->
+        <div id="usage" class="tab-content">
+            <div class="card">
+                <h2>📡 collect-arp：收集 ARP 表</h2>
+                <p>從網路設備收集 ARP 表中的 IP-MAC 對應關係，輸出為 CSV 檔案。</p>
+
+                <h3>基本用法</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Shell</span>
+                        <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    </div>
+                    <pre># 使用設定檔中的設備清單
+python3 mac_manager.py collect-arp</pre>
+                </div>
+
+                <h3>指定設備清單檔案</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Shell</span>
+                        <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    </div>
+                    <pre># 使用外部設備清單
+python3 mac_manager.py collect-arp --device-file /path/to/device_ips.txt</pre>
+                </div>
+
+                <h3>設備清單格式（device_ips.txt）</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Text</span>
+                        <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    </div>
+                    <pre># 註解行會被忽略
+10.1.1.1
+10.1.1.2
+172.16.5.1
+# 以下是備用設備
+192.168.1.1</pre>
+                </div>
+
+                <h3>輸出範例</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>CSV - output/daily/mac_addresses_20241223-0805.csv</span>
+                    </div>
+                    <pre>IP,MAC,Date
+192.168.1.10,aa:bb:cc:dd:ee:ff,2024-12-23
+192.168.1.11,11:22:33:44:55:66,2024-12-23</pre>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🔐 query-ldap：查詢 LDAP MAC</h2>
+                <p>從 LDAP 伺服器查詢 RADIUS 已授權的 MAC 地址清單。</p>
+
+                <h3>基本用法</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Shell</span>
+                        <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    </div>
+                    <pre># 查詢並儲存
+python3 mac_manager.py query-ldap</pre>
+                </div>
+
+                <h3>複製到指定路徑</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Shell</span>
+                        <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    </div>
+                    <pre># 查詢並複製到 /tmp
+python3 mac_manager.py query-ldap --copy-to /tmp/mac_addresses.txt</pre>
+                </div>
+
+                <h3>輸出範例</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Text - output/ldap_mac.txt</span>
+                    </div>
+                    <pre>00:11:22:33:44:55
+aa:bb:cc:dd:ee:ff
+11:22:33:44:55:66</pre>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>📊 monthly-report：月報表</h2>
+                <p>彙整指定月份的所有每日收集資料，每個 MAC 只保留最新記錄。</p>
+
+                <h3>產生上個月報表</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Shell</span>
+                        <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    </div>
+                    <pre># 自動產生上個月的報表
+python3 mac_manager.py monthly-report</pre>
+                </div>
+
+                <h3>指定月份</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Shell</span>
+                        <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    </div>
+                    <pre># 產生 2024 年 12 月的報表
+python3 mac_manager.py monthly-report --month 2024-12</pre>
+                </div>
+
+                <h3>輸出範例</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>CSV - output/monthly/Result202412.csv</span>
+                    </div>
+                    <pre>IP,MAC,Last_Seen
+192.168.1.10,aa:bb:cc:dd:ee:ff,2024-12-20
+192.168.1.11,11:22:33:44:55:66,2024-12-23</pre>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🔍 compare：比對分析</h2>
+                <p>比對 ARP 收集資料與 LDAP 授權清單，找出未授權但在網路上活動的設備。</p>
+
+                <h3>基本用法</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Shell</span>
+                        <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    </div>
+                    <pre>python3 mac_manager.py compare \
+    --arp-file ./output/daily/mac_addresses_20241223-0805.csv \
+    --ldap-file ./output/ldap_mac.txt</pre>
+                </div>
+
+                <h3>輸出未授權清單</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Shell</span>
+                        <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    </div>
+                    <pre>python3 mac_manager.py compare \
+    --arp-file ./output/daily/mac_addresses_20241223-0805.csv \
+    --ldap-file ./output/ldap_mac.txt \
+    --output ./unauthorized_macs.txt</pre>
+                </div>
+
+                <h3>輸出範例</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Terminal Output</span>
+                    </div>
+                    <pre>============================================================
+比對結果
+============================================================
+網路上活動的 MAC: 150
+LDAP 已授權的 MAC: 120
+------------------------------------------------------------
+⚠️  未授權但在使用: 35
+📋 已授權但未活動: 5
+============================================================</pre>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🔧 通用選項</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>選項</th>
+                            <th>說明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>-c, --config</code></td>
+                            <td>指定設定檔路徑（預設：config.yaml）</td>
+                        </tr>
+                        <tr>
+                            <td><code>-v, --verbose</code></td>
+                            <td>顯示詳細日誌（DEBUG 等級）</td>
+                        </tr>
+                        <tr>
+                            <td><code>-h, --help</code></td>
+                            <td>顯示幫助訊息</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Shell</span>
+                        <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    </div>
+                    <pre># 使用詳細模式
+python3 mac_manager.py -v collect-arp
+
+# 使用自訂設定檔
+python3 mac_manager.py -c /path/to/custom.yaml collect-arp</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- 排程設定 -->
+        <div id="cron" class="tab-content">
+            <div class="card">
+                <h2>⏰ Crontab 設定</h2>
+                <p>將以下設定加入 <code>/etc/crontab</code> 或使用 <code>crontab -e</code> 編輯。</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Crontab</span>
+                        <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    </div>
+                    <pre># MAC Manager 自動化排程
+# ============================================
+
+# SNMP ARP 收集（上班時間每小時）
+# 週一至週五，08:05 到 18:05 每小時執行
+5 8-18 * * 1-5 root cd /home/sysadmin/mac-manager && python3 mac_manager.py collect-arp
+
+# LDAP MAC 查詢（上班時間每2小時）
+# 週一至週五，08:01, 10:01, 12:01, 14:01, 16:01 執行
+1 8-17/2 * * 1-5 root cd /home/sysadmin/mac-manager && python3 mac_manager.py query-ldap --copy-to /tmp/mac_addresses.txt
+
+# 月報表（每月1號 07:05）
+5 7 1 * * root cd /home/sysadmin/mac-manager && python3 mac_manager.py monthly-report</pre>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>📅 排程時間說明</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>任務</th>
+                            <th>執行時間</th>
+                            <th>說明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>collect-arp</td>
+                            <td>週一至五 08:05-18:05</td>
+                            <td>每小時掃描一次 ARP 表</td>
+                        </tr>
+                        <tr>
+                            <td>query-ldap</td>
+                            <td>週一至五 08:01, 10:01...</td>
+                            <td>每 2 小時更新授權清單</td>
+                        </tr>
+                        <tr>
+                            <td>monthly-report</td>
+                            <td>每月 1 號 07:05</td>
+                            <td>彙整上個月資料</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <h2>🔐 環境變數注意事項</h2>
+                <div class="alert alert-warning">
+                    <span class="alert-icon">⚠️</span>
+                    <div>Cron 環境可能無法讀取 <code>~/.bashrc</code> 中的環境變數。</div>
+                </div>
+
+                <h3>方法一：在 crontab 中直接設定</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Crontab</span>
+                        <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    </div>
+                    <pre># 在 crontab 開頭加入環境變數
+LDAP_PASSWORD='your_password'
+
+# 然後是排程任務
+5 8-18 * * 1-5 root cd /home/sysadmin/mac-manager && python3 mac_manager.py collect-arp</pre>
+                </div>
+
+                <h3>方法二：使用包裝腳本</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Shell - run_mac_manager.sh</span>
+                        <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    </div>
+                    <pre>#!/bin/bash
+export LDAP_PASSWORD='your_password'
+cd /home/sysadmin/mac-manager
+python3 mac_manager.py "$@"</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- 遷移指南 -->
+        <div id="migrate" class="tab-content">
+            <div class="card">
+                <h2>🔄 從舊腳本遷移</h2>
+                <p>以下是從原有獨立腳本遷移到 MAC Manager 的對照表：</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>原本的執行方式</th>
+                            <th>新的執行方式</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>cd /home/sysadmin/MAC && python3 GetMAC_V6.py</code></td>
+                            <td><code>cd /home/sysadmin/mac-manager && python3 mac_manager.py collect-arp</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>cd /home/sysadmin/RadiusMAC && python3 RadiusMacV2.py</code></td>
+                            <td><code>cd /home/sysadmin/mac-manager && python3 mac_manager.py query-ldap</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>python3 MonthReportV3.py 2024 12 ./Record</code></td>
+                            <td><code>python3 mac_manager.py monthly-report --month 2024-12</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <h2>📋 遷移檢查清單</h2>
+                <ul>
+                    <li>✅ 備份原有腳本和資料</li>
+                    <li>✅ 安裝 Python 依賴套件（pyyaml）</li>
+                    <li>✅ 部署 mac-manager 專案</li>
+                    <li>✅ 建立並填寫 config.yaml</li>
+                    <li>✅ 設定 LDAP_PASSWORD 環境變數</li>
+                    <li>✅ 手動測試各子命令</li>
+                    <li>✅ 更新 crontab 設定</li>
+                    <li>✅ 確認第一次自動執行成功</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>📁 資料遷移</h2>
+                <p>若需要使用舊的每日資料產生月報表：</p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Shell</span>
+                        <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                    </div>
+                    <pre># 將舊資料複製到新的 output/daily 目錄
+cp /home/sysadmin/MAC/Record/*.csv /home/sysadmin/mac-manager/output/daily/
+
+# 產生月報表
+python3 mac_manager.py monthly-report --month 2024-12</pre>
+                </div>
+
+                <div class="alert alert-info">
+                    <span class="alert-icon">💡</span>
+                    <div>新版本產生的 CSV 檔案包含 Header 列，與舊版相容（解析時會自動跳過）。</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2">🗑️ 清理舊檔案（可選）</h2>
+                    <div class="alert alert-danger">
+                        <span class="alert-icon">⚠️</span>
+                        <div>確認新系統運作正常後再執行清理。建議保留舊檔案至少一個月。</div>
+                    </div>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Shell</span>
+                            <button class="copy-btn" onclick="copyCode(this)">複製</button>
+                        </div>
+                        <pre># 備份舊腳本
+tar -czvf old_mac_scripts_backup.tar.gz \
+    /home/sysadmin/MAC \
+    /home/sysadmin/RadiusMAC
+
+# 確認新系統正常後，可刪除舊版
+# rm -rf /home/sysadmin/MAC /home/sysadmin/RadiusMAC</pre>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+        <footer>
+        <p> 2024 MG Feng. All rights reserved.</p>
+        <p>Document: MAC Manager User Guide | Last Updated: 2024-12-24</p>
+    </footer>
+
+    <script>
+        function showTab(tabId) {
+            // 隱藏所有 tab 內容
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // 移除所有按鈕的 active 狀態
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // 顯示選中的 tab
+            document.getElementById(tabId).classList.add('active');
+
+            // 設定按鈕 active 狀態
+            event.target.classList.add('active');
+        }
+
+        
+        function toggleTheme() {
+            const root = document.documentElement;
+            const isDark = root.classList.toggle('light');
+            const btn = document.getElementById('themeBtn');
+            btn.textContent = isDark ? '☀️ Light' : '🌙 Dark';
+            localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        }
+
+        function setLang(lang) {
+            localStorage.setItem('lang', lang);
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                if (btn.dataset.lang === lang) {
+                    btn.style.background = 'var(--primary)';
+                    btn.style.color = 'white';
+                    btn.style.border = 'none';
+                } else {
+                    btn.style.background = 'var(--bg-card)';
+                    btn.style.color = 'var(--text-primary)';
+                    btn.style.border = '1px solid var(--border)';
+                }
+            });
+        }
+
+        // Initialize theme and language
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('theme') === 'light') {
+                document.documentElement.classList.add('light');
+                document.getElementById('themeBtn').textContent = '☀️ Light';
+            }
+            const savedLang = localStorage.getItem('lang') || 'zh-TW';
+            setLang(savedLang);
+        });
+
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block');
+            const code = codeBlock.querySelector('pre').textContent;
+
+            navigator.clipboard.writeText(code).then(() => {
+                button.textContent = '已複製！';
+                button.classList.add('copied');
+
+                setTimeout(() => {
+                    button.textContent = '複製';
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+
+</html>
