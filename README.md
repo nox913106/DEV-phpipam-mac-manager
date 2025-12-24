@@ -163,12 +163,15 @@ ln -s /var/log/mac-manager log
 - 讓 AI 助理可查詢「這個 MAC 是否已授權」
 - 支援即時比對 ARP 資料與 LDAP 清單
 
-### Phase 2：週報整合
-- 在 `weekly_health_report` 加入 MAC 異常統計
-- 輸出項目：
-  - 未授權 MAC 數量
-  - 已授權但未活動的 MAC 數量
-  - 新增 MAC 清單（與上週比對）
+### Phase 2：日巡檢整合 ⭐ (優先)
+- **目標**：在 `weekly_health_report` (MCP-phpipam) 中呈現 MAC 准入異常
+- **需提供 API**：
+  - `get_unauthorized_macs()` - 未授權但在網路上活動的 MAC
+  - `get_inactive_macs(days=30)` - 已授權但超過 N 天未活動的 MAC
+- **輸出項目**：
+  - ⚠️ 未授權上網設備數量 + 清單
+  - 📋 不活躍 MAC 數量（可建議清理）
+  - 📈 本週新增 MAC 清單（與上週比對）
 
 ### Phase 3：phpIPAM 資料同步
 - 將 mac-manager 收集的 MAC 寫入 phpIPAM
