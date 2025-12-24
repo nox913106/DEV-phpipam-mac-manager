@@ -35,7 +35,10 @@ def cmd_collect_arp(args, config, logger):
             for line in f:
                 line = line.strip()
                 if line and not line.startswith('#'):
-                    device_ips.append(line)
+                    # 支援行尾註解：取 # 前面的 IP 部分
+                    ip = line.split('#')[0].strip()
+                    if ip:
+                        device_ips.append(ip)
     
     if not device_ips:
         logger.error("沒有指定設備 IP，請在設定檔或使用 --device-file 指定")
