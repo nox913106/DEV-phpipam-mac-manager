@@ -20,6 +20,7 @@ ldap:
   # 綁定 DN
   bind_dn: "cn=mirrormode,dc=pouchen,dc=com"
   # 密碼從環境變數讀取（安全考量）
+  # 設定方式: export LDAP_PASSWORD='!@PCCradius2020'
   password_env: "LDAP_PASSWORD"
   # 搜尋基底 DN
   base_dn: "dc=pouchen,dc=com"
