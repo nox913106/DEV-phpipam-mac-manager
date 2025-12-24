@@ -20,6 +20,7 @@
             --text-secondary: #94a3b8;
             --border: #334155;
         }
+
         :root.light {
             --primary: #2563eb;
             --primary-dark: #1d4ed8;
@@ -377,10 +378,15 @@
 <body>
     <!-- Controls -->
     <div style="display: flex; gap: 0.5rem; justify-content: flex-end; padding: 1rem 2rem; flex-wrap: wrap;">
-        <button onclick="toggleTheme()" id="themeBtn" style="padding: 0.5rem 1rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 0.5rem; color: var(--text-primary); cursor: pointer;">🌙 Dark</button>
-        <button class="lang-btn active" onclick="setLang('zh-TW')" data-lang="zh-TW" style="padding: 0.5rem 1rem; background: var(--primary); border: none; border-radius: 0.5rem; color: white; cursor: pointer;">繁體中文</button>
-        <button class="lang-btn" onclick="setLang('zh-CN')" data-lang="zh-CN" style="padding: 0.5rem 1rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 0.5rem; color: var(--text-primary); cursor: pointer;">简体中文</button>
-        <button class="lang-btn" onclick="setLang('en')" data-lang="en" style="padding: 0.5rem 1rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 0.5rem; color: var(--text-primary); cursor: pointer;">English</button>
+        <button onclick="toggleTheme()" id="themeBtn"
+            style="padding: 0.5rem 1rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 0.5rem; color: var(--text-primary); cursor: pointer;">🌙
+            Dark</button>
+        <button class="lang-btn active" onclick="setLang('zh-TW')" data-lang="zh-TW"
+            style="padding: 0.5rem 1rem; background: var(--primary); border: none; border-radius: 0.5rem; color: white; cursor: pointer;">繁體中文</button>
+        <button class="lang-btn" onclick="setLang('zh-CN')" data-lang="zh-CN"
+            style="padding: 0.5rem 1rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 0.5rem; color: var(--text-primary); cursor: pointer;">简体中文</button>
+        <button class="lang-btn" onclick="setLang('en')" data-lang="en"
+            style="padding: 0.5rem 1rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 0.5rem; color: var(--text-primary); cursor: pointer;">English</button>
     </div>
 
     <header>
@@ -1039,8 +1045,8 @@ tar -czvf old_mac_scripts_backup.tar.gz \
         </div>
     </div>
 
-        <footer>
-        <p> 2024 MG Feng. All rights reserved.</p>
+    <footer>
+        <p>© 2024 MG Feng. All rights reserved.</p>
         <p>Document: MAC Manager User Guide | Last Updated: 2024-12-24</p>
     </footer>
 
@@ -1063,7 +1069,7 @@ tar -czvf old_mac_scripts_backup.tar.gz \
             event.target.classList.add('active');
         }
 
-        
+
         function toggleTheme() {
             const root = document.documentElement;
             const isDark = root.classList.toggle('light');
