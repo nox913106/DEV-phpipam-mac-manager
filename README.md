@@ -118,12 +118,16 @@ mac-manager/
 │   ├── __init__.py
 │   ├── snmp_collector.py   # SNMP ARP 收集
 │   └── ldap_query.py       # LDAP MAC 查詢
-├── reports/
-│   ├── __init__.py
-│   └── monthly_report.py   # 月報表產生
-└── output/
-    ├── daily/              # 每日 CSV
-    └── monthly/            # 月報表
+└── reports/
+    ├── __init__.py
+    └── monthly_report.py   # 月報表產生
+
+# 輸出路徑 (需手動建立)
+/var/log/mac-manager/
+├── daily/                  # 每日 CSV
+├── monthly/                # 月報表
+├── ldap_mac.txt            # LDAP MAC 清單
+└── mac_manager.log         # 程式日誌
 ```
 
 ## 遷移指南

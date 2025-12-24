@@ -26,13 +26,13 @@ class Config:
             'base_dn': ''
         },
         'output': {
-            'daily_dir': './output/daily',
-            'monthly_dir': './output/monthly',
-            'ldap_output': './output/ldap_mac.txt'
+            'daily_dir': '/var/log/mac-manager/daily',
+            'monthly_dir': '/var/log/mac-manager/monthly',
+            'ldap_output': '/var/log/mac-manager/ldap_mac.txt'
         },
         'logging': {
             'level': 'INFO',
-            'file': ''
+            'file': '/var/log/mac-manager/mac_manager.log'
         }
     }
     

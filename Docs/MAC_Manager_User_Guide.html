@@ -468,12 +468,15 @@
                     │ ├── <span class="file">__init__.py</span>
                     │ ├── <span class="file">snmp_collector.py</span> # SNMP ARP 收集
                     │ └── <span class="file">ldap_query.py</span> # LDAP MAC 查詢
-                    ├── <span class="folder">reports/</span>
-                    │ ├── <span class="file">__init__.py</span>
-                    │ └── <span class="file">monthly_report.py</span> # 月報表產生
-                    └── <span class="folder">output/</span>
+                    └── <span class="folder">reports/</span>
+                    ├── <span class="file">__init__.py</span>
+                    └── <span class="file">monthly_report.py</span> # 月報表產生
+
+                    <span class="folder" style="color:#f97316;">/var/log/mac-manager/</span> # 輸出路徑 (需手動建立)
                     ├── <span class="folder">daily/</span> # 每日 CSV 輸出
-                    └── <span class="folder">monthly/</span> # 月報表輸出
+                    ├── <span class="folder">monthly/</span> # 月報表輸出
+                    ├── <span class="file">ldap_mac.txt</span> # LDAP MAC 清單
+                    └── <span class="file">mac_manager.log</span> # 程式日誌
                 </div>
             </div>
 
@@ -613,13 +616,13 @@ ldap:
   base_dn: "dc=pouchen,dc=com"
 
 output:
-  daily_dir: "./output/daily"
-  monthly_dir: "./output/monthly"
-  ldap_output: "./output/ldap_mac.txt"
+  daily_dir: "/var/log/mac-manager/daily"
+  monthly_dir: "/var/log/mac-manager/monthly"
+  ldap_output: "/var/log/mac-manager/ldap_mac.txt"
 
 logging:
   level: "INFO"
-  file: "./mac_manager.log"</pre>
+  file: "/var/log/mac-manager/mac_manager.log"</pre>
                 </div>
             </div>
 

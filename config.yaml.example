@@ -26,14 +26,14 @@ ldap:
 
 output:
   # 每日 ARP 收集輸出目錄
-  daily_dir: "./output/daily"
+  daily_dir: "/var/log/mac-manager/daily"
   # 月報表輸出目錄
-  monthly_dir: "./output/monthly"
+  monthly_dir: "/var/log/mac-manager/monthly"
   # LDAP MAC 輸出檔案
-  ldap_output: "./output/ldap_mac.txt"
+  ldap_output: "/var/log/mac-manager/ldap_mac.txt"
 
 logging:
   # 日誌等級：DEBUG, INFO, WARNING, ERROR
   level: "INFO"
   # 日誌檔案（留空則只輸出到終端）
-  file: "./mac_manager.log"
+  file: "/var/log/mac-manager/mac_manager.log"
