@@ -1,0 +1,26 @@
+# Fortigate 防火牆設備
+172.16.11.5   # chiotfw.pouchen.com
+172.16.11.4   # chpcnfw.pouchen.com
+172.16.11.3   # chfw.pouchen.com
+172.16.11.2   # chgwfw.pouchen.com
+172.23.13.9   # g3fw.pouchen.com
+172.23.174.9  # tcfw.pouchen.com
+172.23.94.9   # tpbyfw.pouchen.com
+172.23.110.30 # tpfw.pouchen.com
+172.23.199.251 # uaicfw.pouchen.com
+172.23.127.9  # cbdfw.pouchen.com
+
+# Core Switch
+172.23.13.254  # CH-G3-F1F-CoreSW
+172.16.0.254   # N04-CoreSW
+172.23.127.254 # TC-CBD-19F-CoreSW
+172.23.175.254 # TC-HQ-CoreSW
+172.23.199.254 # TC-UAIC-CoreSW
+172.23.94.254  # TP-BaoYu-CoreSW
+172.23.110.254 # TP-XY-CoreSW
+
+# Distribution Switch
+172.16.0.2     # CH-N05-Copper
+172.16.0.1     # CH-N05-Fiber
+172.23.175.161 # TC-HQ16F-SFP-SW2
+172.23.175.160 # TC-HQ16F-Voice
